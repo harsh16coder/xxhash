@@ -87,7 +87,7 @@ func TestSum64_Consistency(t *testing.T) {
 	}
 }
 
-func TestPrintHarsh(t *testing.T) {
+func TestPrintHash64(t *testing.T) {
 	t.Log(Sum64([]byte("harsh")))
 	t.Log(Sum64([]byte("")))
 	// Sum64([]byte("harsh"))
