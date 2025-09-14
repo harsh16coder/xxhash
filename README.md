@@ -124,5 +124,17 @@ The test suite validates:
 - The package implements marshaling for Digest32/Digest64 to persist intermediate state (useful for streaming workflows).
 - For production use, prefer the convenience functions for simple hashing and the Digest types for incremental hashing across blocks.
 
+# Contribution
+
+This project welcomes your PR and issues. For example, refactoring, adding features, correcting English, etc.
+
+If you need any help, you can contact me on [X](https://X.com/harsh1614).
+
+Thanks to all the people who already contributed!
+
+<a href="https://github.com/harsh16coder/xxhash/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=harsh16coder/xxhash" />
+</a>
+
 ## License
 [MIT](./LICENSE)
