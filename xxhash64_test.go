@@ -35,7 +35,7 @@ func TestSum64_AgainstDigest(t *testing.T) {
 		c := c
 		t.Run(c.name, func(t *testing.T) {
 			got := Sum64(c.b)
-			var d Digest
+			var d Digest64
 			d.Reset()
 			if _, err := d.Write(c.b); err != nil {
 				t.Fatalf("Write failed: %v", err)
@@ -60,7 +60,7 @@ func TestSum64_IncrementalEquivalence(t *testing.T) {
 	for _, split := range splits {
 		split := split
 		t.Run(fmt.Sprintf("split=%d", split), func(t *testing.T) {
-			var d Digest
+			var d Digest64
 			d.Reset()
 			for i := 0; i < len(buf); i += split {
 				end := i + split

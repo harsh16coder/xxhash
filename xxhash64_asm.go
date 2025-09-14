@@ -56,7 +56,7 @@ func Sum64(b []byte) uint64 {
 	return h
 }
 
-func writeBlocks(d *Digest, b []byte) int {
+func writeBlocks64(d *Digest64, b []byte) int {
 	n := 0
 	for len(b) >= 32 {
 		d.v1 = round(d.v1, u64(b[:8]))
@@ -68,5 +68,3 @@ func writeBlocks(d *Digest, b []byte) int {
 	}
 	return n
 }
-
-// ...existing code...

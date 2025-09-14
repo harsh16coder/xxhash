@@ -22,11 +22,11 @@ const (
 // contiguous array for the assembly code.
 var primes = [...]uint64{prime1, prime2, prime3, prime4, prime5}
 
-// Digest implements hash.Hash64.
+// Digest64 implements hash.Hash64.
 //
-// Note that a zero-valued Digest is not ready to receive writes.
-// Call Reset or create a Digest using New before calling other methods.
-type Digest struct {
+// Note that a zero-valued Digest64 is not ready to receive writes.
+// Call Reset or create a Digest64 using New before calling other methods.
+type Digest64 struct {
 	v1    uint64
 	v2    uint64
 	v3    uint64
@@ -36,27 +36,27 @@ type Digest struct {
 	n     int // how much of mem is used
 }
 
-// New creates a new Digest with a zero seed.
-func New() *Digest {
-	return NewWithSeed(0)
+// New64 creates a new Digest64 with a zero seed.
+func New64() *Digest64 {
+	return NewWithSeed64(0)
 }
 
-// NewWithSeed creates a new Digest with the given seed.
-func NewWithSeed(seed uint64) *Digest {
-	var d Digest
+// NewWithSeed64 creates a new Digest64 with the given seed.
+func NewWithSeed64(seed uint64) *Digest64 {
+	var d Digest64
 	d.ResetWithSeed(seed)
 	return &d
 }
 
 // Reset clears the Digest's state so that it can be reused.
 // It uses a seed value of zero.
-func (d *Digest) Reset() {
+func (d *Digest64) Reset() {
 	d.ResetWithSeed(0)
 }
 
 // ResetWithSeed clears the Digest's state so that it can be reused.
 // It uses the given seed to initialize the state.
-func (d *Digest) ResetWithSeed(seed uint64) {
+func (d *Digest64) ResetWithSeed(seed uint64) {
 	d.v1 = seed + prime1 + prime2
 	d.v2 = seed + prime2
 	d.v3 = seed
@@ -66,13 +66,13 @@ func (d *Digest) ResetWithSeed(seed uint64) {
 }
 
 // Size always returns 8 bytes.
-func (d *Digest) Size() int { return 8 }
+func (d *Digest64) Size() int { return 8 }
 
 // BlockSize always returns 32 bytes.
-func (d *Digest) BlockSize() int { return 32 }
+func (d *Digest64) BlockSize() int { return 32 }
 
 // Write adds more data to d. It always returns len(b), nil.
-func (d *Digest) Write(b []byte) (n int, err error) {
+func (d *Digest64) Write(b []byte) (n int, err error) {
 	n = len(b)
 	d.total += uint64(n)
 
@@ -98,7 +98,7 @@ func (d *Digest) Write(b []byte) (n int, err error) {
 
 	if len(b) >= 32 {
 		// One or more full blocks left.
-		nw := writeBlocks(d, b)
+		nw := writeBlocks64(d, b)
 		b = b[nw:]
 	}
 
@@ -110,7 +110,7 @@ func (d *Digest) Write(b []byte) (n int, err error) {
 }
 
 // Sum appends the current hash to b and returns the resulting slice.
-func (d *Digest) Sum(b []byte) []byte {
+func (d *Digest64) Sum(b []byte) []byte {
 	s := d.Sum64()
 	var a [8]byte
 	binary.BigEndian.PutUint64(a[:], s)
@@ -118,7 +118,7 @@ func (d *Digest) Sum(b []byte) []byte {
 }
 
 // Sum64 returns the current hash.
-func (d *Digest) Sum64() uint64 {
+func (d *Digest64) Sum64() uint64 {
 	var h uint64
 
 	if d.total >= 32 {
@@ -166,7 +166,7 @@ const (
 )
 
 // MarshalBinary implements the encoding.BinaryMarshaler interface.
-func (d *Digest) MarshalBinary() ([]byte, error) {
+func (d *Digest64) MarshalBinary() ([]byte, error) {
 
 	b := make([]byte, marshaledSize)
 	off := 0
@@ -190,7 +190,7 @@ func (d *Digest) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface.
-func (d *Digest) UnmarshalBinary(b []byte) error {
+func (d *Digest64) UnmarshalBinary(b []byte) error {
 	if len(b) < len(magic) || string(b[:len(magic)]) != magic {
 		return errors.New("xxhash: invalid hash state identifier")
 	}
