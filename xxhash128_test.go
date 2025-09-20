@@ -52,3 +52,15 @@ func TestSum128ActualValues(t *testing.T) {
 		}
 	}
 }
+
+func TestNew128struct(t *testing.T) {
+	h := New128()
+	h.Write([]byte("harsh"))
+	hash := h.Sum128()
+	got := fmt.Sprintf("%016x%016x", hash.Hi, hash.Lo)
+	t.Log(got)
+	want := "e55203a45bd698a0e91b4075969396a9"
+	if got != want {
+		t.Errorf("%v; want: %v", got, want)
+	}
+}
