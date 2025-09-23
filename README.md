@@ -8,6 +8,17 @@ This package provides Go implementations / wrappers for the xxHash family:
 
 All code lives under the `xxhash` package. Tests are provided for validating correctness and incremental behavior.
 
+## Motivation
+
+The main reason I created this repository is that the xxHash family is currently fragmented:
+
+- `xxh32` and `xxh64` are not available together with `xxh128` in a single Go package.
+- To use them today, developers often rely on multiple repositories, each with its own API style and conventions.
+
+My goal with this project is to **unify all major variants (XXH32, XXH64, and XXH128)** into one consistent implementation, so they can be imported and used from a single package.
+
+The implementation here is thin and intentionally simple — it doesn’t diverge from the upstream algorithms but instead exposes them together under one roof with a coherent API.
+
 ## Import
 
 Use the package path for your project. Example (local repo):
