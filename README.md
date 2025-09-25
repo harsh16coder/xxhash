@@ -135,6 +135,17 @@ The test suite validates:
 - The package implements marshaling for Digest32/Digest64 to persist intermediate state (useful for streaming workflows).
 - For production use, prefer the convenience functions for simple hashing and the Digest types for incremental hashing across blocks.
 
+## Acknowledgements
+
+This project would not exist without prior work:  
+
+- [`cespare/xxhash/v2`](https://github.com/cespare/xxhash) — a widely used and optimized xxHash64 implementation.  
+- [`zeebo/xxh3`](https://github.com/zeebo/xxh3) — a high-performance implementation of xxHash3/128.  
+
+I decided to reimplement `xxh32` and `xxh64` here to keep the API consistent across all variants, while `xxh128` is wrapped directly from `zeebo/xxh3`.  
+
+The motivation is not to replace these excellent libraries, but to provide a single, unified import path for developers who want all xxHash variants together.
+
 # Contribution
 
 This project welcomes your PR and issues. For example, refactoring, adding features, correcting English, etc.
